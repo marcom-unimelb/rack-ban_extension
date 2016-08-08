@@ -9,7 +9,7 @@ module Rack
 
     def call(env)
       if @banned_extensions.include? extension(env)
-        Rack::Response.new([], 403).finish
+        Rack::Response.new([], 400).finish
       else
         @app.call(env)
       end
