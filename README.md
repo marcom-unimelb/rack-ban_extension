@@ -1,8 +1,10 @@
 # Rack::BanExtension
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rack/ban_extension`. To experiment with that code, run `bin/console` for an interactive prompt.
+Rack middleware to reject any URL request ending with a specified extension. e.g. `.php`
 
-TODO: Delete this and the text above, and describe your gem
+Ideally you would implement this type of filtering directly in nginx or apache, however some hosting providers do not allow this configuration.
+
+Banning an extension will return an empty 400 response code instead of hitting your application and returning a 404.
 
 ## Installation
 
@@ -16,21 +18,42 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install rack-ban_extension
-
 ## Usage
 
-TODO: Write usage instructions here
+Include the middleware and provide an array of extensions to reject.
 
-## Development
+Ruby on Rails example (application.rb):
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+    config.middleware.use Rack::BanExtension, %w(php aspx)
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+This configuration will block requests to:
+
+    /index.php
+    /index.PHP
+    /index.aspx
+    /page.php?param=value
+    /page.php#anchor
+
+It will **not** block requests to:
+
+    /
+    /index
+    /index?.php
+    /index#.php
+    /page.php3
+    /page.asp
+
+The exact extension name must be used. You may want to include common variations of an extension to catch more URLs:
+
+    use Rack::BanExtension, %w(php php3 asp aspx)
+
+## See also
+
+As an alternative you might want to investigate these similar gems which were an influence on this project:
+
+* [rack-attack](https://github.com/kickstarter/rack-attack)
+* [rack-accept]([https://github.com/mjackson/rack-accept])
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rack-ban_extension. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/marcom-unimelb/rack-ban_extension. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
