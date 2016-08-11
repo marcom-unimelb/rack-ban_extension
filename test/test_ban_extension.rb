@@ -35,8 +35,18 @@ class TestBanExtension < Minitest::Test
     assert last_response.ok?
   end
 
+  def test_valid_but_similar_to_banned_extension
+    get '/index.php3'
+    assert last_response.ok?
+  end
+
   def test_banned_extension
     get '/index.php'
+    assert last_response.bad_request?
+  end
+
+  def test_uppercase_banned_extension
+    get '/index.PHP'
     assert last_response.bad_request?
   end
 
