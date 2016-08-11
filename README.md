@@ -11,7 +11,7 @@ Banning an extension will return an empty 400 response code instead of hitting y
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rack-ban_extension'
+gem 'rack-ban_extension', github: 'marcom-unimelb/rack-ban_extension'
 ```
 
 And then execute:
