@@ -52,7 +52,7 @@ The exact extension name must be used. You may want to include common variations
 As an alternative you might want to investigate these similar gems which were an influence on this project:
 
 * [rack-attack](https://github.com/kickstarter/rack-attack)
-* [rack-accept]([https://github.com/mjackson/rack-accept])
+* [rack-accept](https://github.com/mjackson/rack-accept)
 
 ## Contributing
 
