@@ -1,5 +1,7 @@
 # Rack::BanExtension
 
+[![Build Status](https://semaphoreci.com/api/v1/unimelb/rack-ban_extension/branches/master/badge.svg)](https://semaphoreci.com/unimelb/rack-ban_extension)
+
 Rack middleware to reject any URL request ending with a specified extension. e.g. `.php`
 
 Ideally you would implement this type of filtering directly in nginx or apache, however some hosting providers do not allow this configuration.
